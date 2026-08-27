@@ -14,3 +14,10 @@ class CodeState(TypedDict):
     audit_report: str
     optimized_code: str
     documentation: str
+
+
+# Initialize the Gemini Model
+llm = ChatGoogleGenerativeAI(
+    model="gemini-3.7-flash", 
+    temperature=0.2 
+)
