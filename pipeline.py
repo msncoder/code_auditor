@@ -7,3 +7,10 @@ import ast
 
 # Load environment variables
 load_dotenv()
+
+# Define the State for our sequential pipeline
+class CodeState(TypedDict):
+    raw_code: str
+    audit_report: str
+    optimized_code: str
+    documentation: str
