@@ -82,3 +82,14 @@ def refactor_node(state: CodeState) -> dict:
     )
     response = llm.invoke(prompt)
     return {"optimized_code": clean_code_block(get_text(response))}
+
+
+# --- Agent Node 3: Documentation ---
+def doc_node(state: CodeState) -> dict:
+    prompt = (
+        "You are a Technical Writer. Generate a comprehensive README and docstrings for the following optimized code. "
+        "Include a brief summary, how it works, and usage instructions.\n\n"
+        f"Optimized Code:\n{state['optimized_code']}"
+    )
+    response = llm.invoke(prompt)
+    return {"documentation": get_text(response)}
