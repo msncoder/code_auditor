@@ -44,3 +44,16 @@ def get_text(response):
                 return content
         return content
     return str(content).strip()
+
+
+# Clean code block markdown tags
+def clean_code_block(text: str) -> str:
+    text = text.strip()
+    if text.startswith("```"):
+        lines = text.split("\n")
+        if len(lines) > 1 and lines[0].startswith("```"):
+            lines = lines[1:]
+        if len(lines) > 0 and lines[-1].startswith("```"):
+            lines = lines[:-1]
+        return "\n".join(lines).strip()
+    return text
