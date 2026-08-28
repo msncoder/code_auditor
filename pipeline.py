@@ -69,3 +69,16 @@ def scanner_node(state: CodeState) -> dict:
     )
     response = llm.invoke(prompt)
     return {"audit_report": get_text(response)}
+
+
+# --- Agent Node 2: Refactor & Optimizer ---
+def refactor_node(state: CodeState) -> dict:
+    prompt = (
+        "You are an elite Senior Backend Developer. Based on the following Audit Report, "
+        "refactor and optimize the original code. Ensure it follows best practices (like PEP8 for Python), "
+        "is highly performant, and secure. Return ONLY the refactored code without any explanations.\n\n"
+        f"Audit Report:\n{state['audit_report']}\n\n"
+        f"Original Code:\n{state['raw_code']}"
+    )
+    response = llm.invoke(prompt)
+    return {"optimized_code": clean_code_block(get_text(response))}
