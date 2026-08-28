@@ -57,3 +57,15 @@ def clean_code_block(text: str) -> str:
             lines = lines[:-1]
         return "\n".join(lines).strip()
     return text
+
+
+# --- Agent Node 1: Scanner ---
+def scanner_node(state: CodeState) -> dict:
+    prompt = (
+        "You are an expert Security & QA Engineer. Analyze the following code for bugs, "
+        "security vulnerabilities, anti-patterns, and bad practices. "
+        "Be concise and output the issues in a clear bulleted list.\n\n"
+        f"Code to analyze:\n{state['raw_code']}"
+    )
+    response = llm.invoke(prompt)
+    return {"audit_report": get_text(response)}
