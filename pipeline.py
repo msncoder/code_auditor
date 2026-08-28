@@ -1,3 +1,4 @@
+from asyncio import log
 import os
 from typing import TypedDict
 from dotenv import load_dotenv
@@ -93,3 +94,21 @@ def doc_node(state: CodeState) -> dict:
     )
     response = llm.invoke(prompt)
     return {"documentation": get_text(response)}
+
+
+# Build and Compile the Graph
+def build_graph():
+    graph = StateGraph(CodeState)
+    graph.add_node("scanner", scanner_node)
+    graph.add_node("refactor", refactor_node)
+    graph.add_node("doc", doc_node)
+
+    graph.add_edge(START, "scanner")
+    graph.add_edge("scanner", "refactor")
+    graph.add_edge("refactor", "doc")
+    graph.add_edge("doc", END)
+    
+    return graph.compile()
+
+# Export the compiled graph
+pipeline_app = build_graph()
